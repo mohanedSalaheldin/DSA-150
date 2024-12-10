@@ -73,7 +73,7 @@ public class QueueStac {
             int[] curArr = matrix[i];
             if (search(curArr, target)){
                 return true;
-            }]
+            }
         }
         return  false;
     }
