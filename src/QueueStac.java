@@ -7,9 +7,13 @@ public class QueueStac {
 
     public static void main(String[] args) {
 //        Queue<Integer> queue = new ArrayDeque<>();
-        int[] arr =  {0, 20, 30, 40};
-        Queue<Integer> queue = new LinkedList(Arrays.asList(arr));
-        System.out.println(queue);
+//        int[] arr =  {0, 20, 30, 40};
+//        Queue<Integer> queue = new LinkedList(Arrays.asList(arr));
+//        System.out.println(queue);
+
+        QueueStac q = new QueueStac();
+        int[] arr = {1,100,1,1,1,100,1,1,100,1};
+        System.out.println(q.minCostClimbingStairs(arr));
 
     }
 
@@ -38,6 +42,30 @@ public class QueueStac {
         }
 
         return q.size();
+    }
+
+
+    public int climbStairs(int n) {
+        if(n == 0 || n == 1)
+            return 1;
+        return climbStairs(n-1) + climbStairs(n-2);
+    }
+
+    public int minCostClimbingStairs(int[] cost) {
+        int lazy = 0;
+        int fast = 1;
+        int cur= -1,total = 0;
+        while (cur < cost.length){
+           if (cost[cur+1] > cost[cur+2]){
+               total = cost[cur+1];
+               cur+=1;
+           }else {
+               total = cost[cur+2];
+               cur+=2;
+           }
+            System.out.println(cur);
+        }
+        return total;
     }
 
 
