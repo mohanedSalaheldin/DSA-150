@@ -71,9 +71,7 @@ public class QueueStac {
     public boolean searchMatrix(int[][] matrix, int target) {
         for (int i = 0; i < matrix.length; i++) {
             int[] curArr = matrix[i];
-            if (search(curArr, target)){
-                return true;
-            }
+            if (search(curArr, target)) return true;
         }
         return  false;
     }
@@ -84,13 +82,9 @@ public class QueueStac {
         int l = n-1;
         while (f<=l) {
             int mid = (f+l)/2;
-            if (nums[mid]==target) {
-                return true;
-            }else if (nums[mid] > target) {
-                l = mid-1;
-            } else {
-                f = mid +1;
-            }
+            if (nums[mid]==target) return true;
+            else if (nums[mid] > target) l = mid-1;
+            else f = mid +1;
         }
         return false;
     }
