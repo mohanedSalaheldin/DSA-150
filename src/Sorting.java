@@ -1,7 +1,8 @@
 public class Sorting {
     public static void main(String[] args) {
         int[] arr = {5,1,1,2,0,0};
-        show((arr));
+
+        show((quickSort2(arr, 0, arr.length-1)));
 
     }
 
@@ -69,6 +70,93 @@ public class Sorting {
             pp++;
         }
     }
+    public static int[] quickSort(int[] nums, int l, int r) {
+        if(r-l+1 <= 1) return nums;
+
+        int pivot = nums[r];
+        int i =l;
+
+        for (int j = l; j <= r; j++) {
+            if (nums[i] < pivot) {
+                int temp = nums[j];
+                nums[j] = nums[i];
+                nums[i] = temp;
+                i++;
+            }
+        }
+        nums[r] = nums[i];
+        nums[i]=pivot;
+        quickSort(nums, l, i-1);
+        quickSort(nums, i+1, r);
+        return nums;
+    }
 
 
+    public static int[] quickSort2(int[] nums, int l, int r) {
+        if(r-l+1<=1) return nums;
+
+        int piv = nums[r];
+        int cur = l;
+
+        for (int i = l; i <=r ; i++) {
+            if (nums[i]<piv){
+                int temp = nums[cur];
+                nums[cur] = nums[i];
+                nums[i] = temp;
+                cur++;
+            }
+        }
+
+        nums[r] = nums[cur];
+        nums[cur] = piv;
+
+        quickSort2(nums, l, cur-1);
+        quickSort2(nums, cur+1, r);
+        return nums;
+    }
+
+
+
+
+    public ListNode mergeKLists(ListNode[] lists) {
+         if(lists.length==0 || (lists.length==1 && (lists[0]==null ||lists[0].next==null))){
+             return null;
+         }
+        int n = lists.length;
+        ListNode res = mergeTwoLists(lists[0], lists[1]);
+        for(int i=2 ;i<n;i++){
+            res = mergeTwoLists(res, lists[i]);
+        }
+        return res;
+    }
+    public  ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode();
+        ListNode tail = dummy;
+        while(list1 != null && list2 != null){
+            if (list1.val < list2.val){
+                tail.next = list1;
+                list1 = list1.next;
+            }else {
+                tail.next = list2;
+                list2 = list2.next;
+            }
+            tail = tail.next;
+        }
+        if (list1 != null){
+            tail.next = list1;
+        }else  if (list2 != null){
+            tail.next = list2;
+        }
+        return  dummy.next;
+    }
+}
+
+
+ class ListNode {
+     int val;
+     ListNode next;
+     ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next;
+     }
 }
