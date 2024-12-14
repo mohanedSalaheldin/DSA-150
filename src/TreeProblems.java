@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.*;
 import java.util.Stack;
 
 public class TreeProblems {
@@ -48,7 +50,60 @@ public class TreeProblems {
 //        int mid = inorder.indexOf(preorder[0]);
 //        root.left = buildTree(preorder.sublist(1, mid+1), inorder.sublist(0, mid));
 //        root.right = buildTree(preorder.sublist(mid+1, preorder.length), inorder.sublist(mid+1, inorder.length));
-//        return root;
+        return new TreeNode(0);
+    }
+
+    public void bfs(TreeNode root){
+        if (root == null) return;
+        Queue<TreeNode> q = new ArrayDeque();
+        q.add(root);
+
+        while (!q.isEmpty()){
+            for (int i = 0; i < q.size(); i++) {
+                TreeNode cur = q.poll();
+                System.out.println(cur.val);
+                if (cur.left!=null) q.add(cur.left);
+                if (cur.right!=null) q.add(cur.right);
+            }
+        }
+    }
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        Queue<TreeNode> q = new  LinkedList<>();
+        q.add(root);
+        int level = 0;
+        List<List<Integer>> res = new ArrayList<>();
+        while(!q.isEmpty()){
+            List<Integer> arr = new ArrayList<>();
+            for(int i=0; i<q.size();i++){
+                TreeNode cur = q.poll();
+                arr.add(cur.val);
+                if(cur.left!=null) q.add(cur.left);
+                if(cur.right!=null) q.add(cur.right);
+            }
+            res.add(arr);
+        }
+        return res;
+    }
+
+    public List<Integer> rightSideView(TreeNode root) {
+        if (root == null) return  new ArrayList<>();
+        Queue<TreeNode> q = new  LinkedList<>();
+        q.add(root);
+        int level = 0;
+        List<Integer> res = new ArrayList<>();
+        while(!q.isEmpty()){
+            int levelSize = q.size();
+            List<Integer> arr = new ArrayList<>();
+            for(int i=0; i<levelSize;i++){
+                TreeNode cur = q.poll();
+                if(cur.left!=null) q.add(cur.left);
+                if(cur.right!=null) q.add(cur.right);
+                arr.add(cur.val);
+            }
+            res.add(arr.get(arr.size()-1));
+        }
+        return res;
     }
 }
 
