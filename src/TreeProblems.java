@@ -42,7 +42,13 @@ public class TreeProblems {
     }
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-
+        // DART SOLUTION
+//        if(inorder.isEmpty || preorder.isEmpty)  return null;
+//        TreeNode? root = TreeNode(preorder[0]);
+//        int mid = inorder.indexOf(preorder[0]);
+//        root.left = buildTree(preorder.sublist(1, mid+1), inorder.sublist(0, mid));
+//        root.right = buildTree(preorder.sublist(mid+1, preorder.length), inorder.sublist(mid+1, inorder.length));
+//        return root;
     }
 }
 
