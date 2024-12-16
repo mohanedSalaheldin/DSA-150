@@ -13,9 +13,69 @@ public class HeapMain {
         heap.push(65);
         heap.push(30);
 
-        System.out.println(heap.getArr());
-        heap.push(17);
-        System.out.println(heap.getArr());
+//        System.out.println(heap.getArr());
+//        heap.push(17);
+//        System.out.println(heap.getArr());
+
+        Integer[] array = {5, 1, 3, 7, 9, 2};
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Collections.reverseOrder());
+        priorityQueue.addAll(Arrays.asList(array));
+        // Print the PriorityQueue
+        System.out.println(priorityQueue);
+        priorityQueue.poll();
+        System.out.println(priorityQueue);
+    }
+
+    public int lastStoneWeight(int[] stones) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        for (int s : stones) {
+            pq.offer(s);
+        }
+        while (pq.size()>1){
+            int y = pq.poll();
+            int x = pq.poll();
+            if (x!=y){
+                pq.offer(y-x);
+            }
+        }
+        return pq.size()== 0 ? 0 : pq.peek().intValue();
+    }
+
+    public int[][] kClosest(int[][] points, int k) {
+        if (points.length==1) {
+            return points;
+        }
+        Comparator<int[]> myComparator = (a, b) -> {
+            double sumA = calcDes(a);
+            double sumB = calcDes(b);
+            return Double.compare(sumB, sumA);
+        };
+        PriorityQueue<int[]> pq = new PriorityQueue(myComparator);
+        pq.addAll(Arrays.asList(points));
+        int[][] res = new int[2][k];
+        for (int i = 0; i < k; i++) {
+            res[i] = pq.poll();
+        }
+        return res;
+    }
+
+    public double calcDes(int[] x){
+        double sum = Math.pow  (x[1],2) + Math.pow  (x[0],2) ;
+        return Math.sqrt(sum);
+    }
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> q = new PriorityQueue<>();
+        for (int i = 0; i < nums.length; i++) {
+            if(q.size()<k){
+                q.offer(nums[i]);
+            } else if(nums[i] > q.peek()){
+                q.offer(nums[i]);
+                if(q.size()>k){
+                    q.poll();
+                }
+            }
+        }
+        return q.peek();
     }
 }
 
