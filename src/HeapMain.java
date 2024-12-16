@@ -107,4 +107,21 @@ class KthLargest {
         }
         return q.peek();
     }
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        compRec(candidates, target, 0,  0,  new ArrayList<>() ,   res);
+        return res;
+    }
+    void compRec(int[] candidates, int target, int total, int idx, List<Integer> sub ,  List<List<Integer>> res){
+        if (idx>=candidates.length || total > target) return;
+        if(total == target) {
+            res.add(sub);
+            return;
+        }
+        sub.add(candidates[idx]);
+        compRec(candidates, target, total + candidates[idx],  idx,  sub ,   res);
+        sub.remove(sub.size()-1);
+        compRec(candidates, target, total,  idx+1,  sub ,   res);
+    }
 }
