@@ -1,11 +1,16 @@
+import java.util.*;
+
 public class Graphs {
     public static void main(String[] args) {
-       int[][] grid  = {
-            {0, 0, 0, 0},
-            {1, 1, 0, 0},
-            {0, 0, 0, 1},
-            {0, 1, 0, 0}
+        int[][] grid = {
+                {0, 0, 0, 0},
+                {1, 1, 0, 0},
+                {0, 0, 0, 1},
+                {0, 1, 0, 0}
         };
+        int[][] visit = new int[grid.length][grid[0].length];
+        int totalPaths = myGraphdfs(grid, visit, 0, 0);
+        System.out.println("Total Paths: " + totalPaths);
 
     }
 
@@ -31,6 +36,7 @@ public class Graphs {
         if (r == ROWS-1 && c == COLS-1)
             return 1;
         visit[r][c] = 1;
+        System.out.println("("+ r + "," + c + ")");
         int count = 0;
         count+= myGraphdfs(grid, visit, r-1, c);
         count+= myGraphdfs(grid, visit, r+1, c);
@@ -41,7 +47,10 @@ public class Graphs {
         return count;
     }
 
-//    static bfs(){
-//
-//    }
+    static int bfs(char[][] box, Set<Character> visited , int r, int c){
+        int ROWS = box.length, COLS = box[0].length;
+        int[][] dirs = {{0,1}, {0,-1}, {1,0}, {-1,0}};
+        Queue<Character> q = new LinkedList();
+
+    }
 }
