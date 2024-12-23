@@ -64,9 +64,9 @@ public class Sol {
         q.add(new int[] {r,c});
 
         int[][] dirs = {
-                {1,0}
-                {-1,0}
-                {0,1}
+                {1,0},
+                {-1,0},
+                {0,1},
                 {0,-1}
         };
 
@@ -82,6 +82,32 @@ public class Sol {
             }
         }
     }
+
+    public int maxAreaOfIsland(int[][] grid) {
+        int ROWS = grid.length, COLS = grid[0].length;
+        Set<String> visited = new HashSet<>();
+        int ans = 0;
+        for (int r = 0; r < ROWS; r++) {
+            for (int c = 0; c < COLS; c++) {
+                if (grid[r][c]==1){
+                   ans = Math.max(  bfsmaxArea(grid, visited, r, c), ans);
+                }
+            }
+        }
+        return ans;
+    }
+    private int bfsmaxArea(int[][] grid, Set visited, int r, int c,) {
+        int ROWS = grid.length, COLS = grid[0].length;
+        if(r<0 || c<0 || r >= ROWS || c>=COLS || grid[r][c]==0 || visited.contains(r+","+c))
+            return 0;
+        visited.add(r+","+c);
+        return (1 +
+                bfsmaxArea(grid, visited, r+1, c)+
+                bfsmaxArea(grid, visited, r-1, c)+
+                bfsmaxArea(grid, visited, r, c+1)+
+                bfsmaxArea(grid, visited, r, c-1));
+    }
+
 
 }
 
