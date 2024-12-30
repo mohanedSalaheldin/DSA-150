@@ -73,6 +73,41 @@ public class AdjList {
         }
         return cp;
     }
+
+
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        HashMap<Integer, ArrayList<Integer>> g = new HashMap<>();
+        HashSet<Integer> v = new HashSet<>();
+        for (int i = 0; i < numCourses; i++) {
+            g.put(i, new ArrayList<>());
+        }
+
+        for (int i = 0; i < prerequisites.length; i++) {
+            int src = prerequisites[i][0], dst = prerequisites[i][1];
+            g.get(src).add(dst);
+        }
+
+        for (int i = 0; i < numCourses; i++) {
+            if (!dfsCanFinish(i, v,g)) return false;
+        }
+        return true;
+    }
+
+
+    public boolean dfsCanFinish(int cur, HashSet<Integer> v, HashMap<Integer, ArrayList<Integer>> g) {
+        if (v.contains(cur))
+            return false;
+        if (g.get(cur).size()==0)
+            return true;
+
+        v.add(cur);
+        for (int nig: g.get(cur)) {
+            if (!dfsCanFinish(nig, v,g)) return false;
+        }
+        v.remove(cur);
+        g.put(cur, new ArrayList<>());
+        return true;
+    }
 }
 
 class Node {
